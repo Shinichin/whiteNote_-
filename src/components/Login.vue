@@ -1,30 +1,23 @@
 <template>
-  <div>
-    <div class="info-type">
-    <van-form @submit="onSubmit">
-      <van-field
-        v-model="loginForm.username"
-        name="用户名"
-        label="用户名"
-        placeholder="用户名"
-        :rules="[{ required: true, message: '请填写用户名' }]"
-      />
-      <van-field
-        v-model="loginForm.password"
-        type="password"
-        name="密码"
-        label="密码"
-        placeholder="密码"
-        :rules="[{ required: true, message: '请填写密码' }]"
-      />
-      <div style="margin: 16px;">
-        <van-button round block type="info" native-type="submit">
-          提交
-        </van-button>
-      </div>
-    </van-form>
-    </div>
-  </div>
+<div id="poster">
+
+    <el-form class="login-container" label-position="left"
+             label-width="0px">
+      <h3 class="login_title">系统登录</h3>
+      <el-form-item>
+        <el-input type="text" v-model="loginForm.username"
+                  auto-complete="off" placeholder="账号"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-input type="password" v-model="loginForm.password"
+                  auto-complete="off" placeholder="密码"></el-input>
+      </el-form-item>
+      <el-form-item style="width: 100%">
+        <el-button type="success" class="button-type" v-on:click="onSubmit">登录</el-button>
+      </el-form-item>
+    </el-form>
+</div>
+
 </template>
 
 <script>
@@ -45,6 +38,8 @@ export default {
   },
   methods: {
     onSubmit () {
+      const _this = this
+      console.log(this.$store.state)
       this.$axios
         .post('/login', {
           username: this.loginForm.username,
@@ -52,7 +47,10 @@ export default {
         })
         .then(successResponse => {
           if (successResponse.data.code === 200) {
-            this.$router.replace({path: '/index'})
+            _this.$store.commit('login', _this.loginForm)
+            var path = this.$route.query.redirect
+            console.log(path)
+            this.$router.replace({path: path === '/' || path === undefined ? '/index' : path})
           }
         })
         .catch(failResponse => {
@@ -63,9 +61,39 @@ export default {
 </script>
 
 <style scoped>
-.info-type{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  #poster {
+    background:url("../assets/picture/p01.jpg") no-repeat;
+    background-position: center;
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    position: fixed;
+  }
+  el-table-body{
+    margin: 0px;
+  }
+  .login-container {
+    border-radius: 15px;
+    background-clip: padding-box;
+    margin: 90px auto;
+    width: 350px;
+    padding: 35px 35px 15px 35px;
+    background: #fff;
+    border: 1px solid #eaeaea;
+    box-shadow: 0 0 25px #cac6c6;
+  }
+
+  .login_title {
+    margin: 0px auto 40px auto;
+    text-align: center;
+    color: #505458;
+  }
+  .button-type{
+    width: 100%;
+    background: #505458;
+    border: none;
+    color: white;
+    margin-top: 20px;
+
+  }
 </style>

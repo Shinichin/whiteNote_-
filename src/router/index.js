@@ -4,26 +4,42 @@ import AppIndex from '@/components/home/AppIndex'
 import Login from '@/components/Login'
 import Van from 'vant'
 import 'vant/lib/index.css'
-
+import Home from '../components/Home'
+import LibraryIndex from '../components/library/LibraryIndex'
 Vue.use(Van)
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
-
     {
-      path: '/',
-      redirect: '/login'
+      path: '/home',
+      name: 'Home',
+      component: Home,
+      redirect: '/index',
+      children: [
+        {
+          path: '/index',
+          name: 'AppIndex',
+          component: AppIndex,
+          meta: {
+            requireAuth: true
+          }
+        },
+        {
+          path: '/library',
+          name: 'Library',
+          component: LibraryIndex,
+          meta: {
+            requireAuth: true
+          }
+        }
+      ]
     },
     {
       path: '/login',
       name: 'Login',
       component: Login
-    },
-    {
-      path: '/index',
-      name: 'AppIndex',
-      component: AppIndex
     }
   ]
 })
