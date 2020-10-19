@@ -13,8 +13,8 @@
           <span>{{item.press}}</span>
         </p>
         <p slot="content" style="width: 300px" class="abstract">{{item.abs}}</p>
-        <el-card style="width: 135px;margin-bottom: 20px;height: 233px;float: left;margin-right: 15px" class="book"
-                 bodyStyle="padding:10px" shadow="hover">
+        <el-card style="width: 135px;margin-bottom: 20px;height: 228px;float: left;margin-right: 15px" class="book"
+                 bodyStyle="padding:10px" shadow="always">
           <div class="cover" @click="editBook(item)">
             <img :src="item.cover" alt="封面">
           </div>
@@ -22,9 +22,10 @@
             <div class="title">
               <a href="">{{item.title}}</a>
             </div>
+          </div>
+          <div class="author">{{item.author}}
             <i class="el-icon-delete" @click="deleteBook(item.id)"></i>
           </div>
-          <div class="author">{{item.author}}</div>
         </el-card>
       </el-tooltip>
       <edit-form @onSubmit="loadBooks()" ref="edit"></edit-form>

@@ -37,7 +37,19 @@
 
 <script>
 export default {
-  name: 'SideMenu'
+  name: 'SideMenu',
+  data () {
+    return {
+      cid: ''
+    }
+  },
+  methods: {
+    handleSelect (key, keyPath) {
+      this.cid = key
+      this.$emit('indexSelect')
+      // 触发自定义indexSelect事件
+    }
+  }
 }
 </script>
 
