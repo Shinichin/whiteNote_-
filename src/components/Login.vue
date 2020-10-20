@@ -1,6 +1,5 @@
 <template>
 <div id="poster">
-
     <el-form class="login-container" label-position="left"
              label-width="0px">
       <h3 class="login_title">系统登录</h3>
@@ -15,6 +14,7 @@
       <el-form-item style="width: 100%">
         <el-button type="success" class="button-type" v-on:click="onSubmit">登录</el-button>
       </el-form-item>
+      <router-link class="register-type" to="/Register">注册新用户</router-link>
     </el-form>
 </div>
 
@@ -68,6 +68,7 @@ export default {
     width: 100%;
     background-size: cover;
     position: fixed;
+
   }
   el-table-body{
     margin: 0px;
@@ -95,5 +96,7 @@ export default {
     color: white;
     margin-top: 20px;
 
+  }
+  .register-type{
   }
 </style>
