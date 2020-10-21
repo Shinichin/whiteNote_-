@@ -6,6 +6,7 @@ import Van from 'vant'
 import 'vant/lib/index.css'
 import Home from '../components/Home'
 import LibraryIndex from '../components/library/LibraryIndex'
+import ArticleEditor from '../components/admin/content/ArticleEditor'
 Vue.use(Van)
 Vue.use(Router)
 
@@ -33,6 +34,11 @@ export default new Router({
           meta: {
             requireAuth: true
           }
+        },
+        {
+          path: '/jotter',
+          name: 'Jotter',
+          component: () => import('../components/jotter/Articles')
         }
       ]
     },
@@ -40,6 +46,19 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/admin/content/ArticleEditor',
+      name: 'ArticleEditor',
+      component: ArticleEditor,
+      meta: {
+        requireAuth: true
+      }
     }
   ]
 })
